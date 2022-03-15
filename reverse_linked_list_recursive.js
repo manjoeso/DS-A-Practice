@@ -1,6 +1,6 @@
 var reverseList = function(head, prev = null) {
 
-    if(head === null) return null; // recursively, this is the tail. 
+    if(head === null) return prev; // recursively, this is the tail. 
 
     next = head.next;
     head.next = prev;
