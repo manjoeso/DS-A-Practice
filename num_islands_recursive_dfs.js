@@ -20,3 +20,5 @@ const dfs = function(grid, i, j){
     if(i + 1 < numRows && grid[i + 1][j] === '1') dfs(grid, i + 1, j);
     if(i - 1 >= 0 && grid[i - 1][j] === '1') dfs(grid, i - 1, j);
 }
+
+
