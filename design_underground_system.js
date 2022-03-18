@@ -62,3 +62,54 @@ UndergroundSystem.prototype.getAverageTime = function(startStation, endStation) 
     }
     return sum/times.length;
 };
+
+
+// VERSION 2 
+
+
+var UndergroundSystem = function() {
+    this.trips = {};
+    this.times = {};
+};
+
+/** 
+ * @param {number} id 
+ * @param {string} stationName 
+ * @param {number} t
+ * @return {void}
+ */
+UndergroundSystem.prototype.checkIn = function(id, stationName, t) {
+    this.trips[id] = {};
+    this.trips[id]['check-in'] = {departureStationName: stationName, t: t}
+};
+
+/** 
+ * @param {number} id 
+ * @param {string} stationName 
+ * @param {number} t
+ * @return {void}
+ */
+UndergroundSystem.prototype.checkOut = function(id, stationName, t) {
+    // this.trips[id]['check-out'] = {arrivalStationName: stationName, t: t};
+    let departureCity = this.trips[id]['check-in']['departureStationName'];
+    let travelTime = t - this.trips[id]['check-in']['t']; // one trip (for id) length
+    if(this.times[`${departureCity}-${stationName}`] === undefined) {
+        this.times[`${departureCity}-${stationName}`] = [];
+    }
+    this.times[`${departureCity}-${stationName}`].push(travelTime); 
+};
+
+/** 
+ * @param {string} startStation 
+ * @param {string} endStation
+ * @return {number}
+ */
+UndergroundSystem.prototype.getAverageTime = function(startStation, endStation) {
+    let tripTimes = this.times[`${startStation}-${endStation}`];
+    let tripCount = tripTimes.length;
+    let sum = 0;
+    for(let i = 0; i < tripTimes.length; i++){
+        sum += tripTimes[i];
+    }
+    return sum/tripCount;
+};
