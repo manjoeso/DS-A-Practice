@@ -9,5 +9,5 @@ const twoCity = function (costs){
     for(let i = 0; i < costs.length/2; i++){
         costTotal += costs[i][0] + costs[i + costs.length/2][1];
     }
-    return costTotal;
+    return costTo tal;
 }
